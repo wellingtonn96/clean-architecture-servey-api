@@ -1,5 +1,16 @@
 {
   "extends": "standard-with-typescript",
+  "rules": {
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "comma-dangle": "off"
+  },
   "parserOptions": {
     "project": "./tsconfig.json"
   }

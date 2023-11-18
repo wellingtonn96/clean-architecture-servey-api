@@ -1,44 +1,44 @@
-import UserRepository from "../repositories/UserRepository";
-import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
-import { jwt } from "../config/auth";
+import UserRepository from '../repositories/UserRepository'
+import bcrypt from 'bcrypt'
+import { sign } from 'jsonwebtoken'
+import { jwt } from '../config/auth'
 
 class AuthenticateUserService {
-  private userRepository: UserRepository;
+  private readonly userRepository: UserRepository;
 
-  constructor(userRepository: UserRepository) {
-    this.userRepository = userRepository;
+  constructor (userRepository: UserRepository) {
+    this.userRepository = userRepository
   }
 
-  public async execute({
+  public async execute ({
     email,
-    password,
+    password
   }: {
-    email: string;
-    password: string;
+    email: string
+    password: string
   }) {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email)
 
-    if (!user) {
-      throw new Error("incorrect email/password combination");
+    if (user == null) {
+      throw new Error('incorrect email/password combination')
     }
 
-    const passwordMached = await bcrypt.compare(password, user.password);
+    const passwordMached = await bcrypt.compare(password, user.password)
 
     if (!passwordMached) {
-      throw new Error("incorrect email/password combination");
+      throw new Error('incorrect email/password combination')
     }
 
     const token = sign({}, jwt.secret, {
       subject: user._id.toString(),
-      expiresIn: jwt.expiresIn,
-    });
+      expiresIn: jwt.expiresIn
+    })
 
     return {
       user,
-      token,
-    };
+      token
+    }
   }
 }
 
-export { AuthenticateUserService };
+export { AuthenticateUserService }

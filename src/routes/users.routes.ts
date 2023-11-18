@@ -1,22 +1,22 @@
-import { Router } from "express";
-import UserRepository from "../repositories/UserRepository";
-import CreateUserService from "../services/CreateUserService";
+import { Router } from 'express'
+import UserRepository from '../repositories/UserRepository'
+import CreateUserService from '../services/CreateUserService'
 
-const userRouter = Router();
+const userRouter = Router()
 
-userRouter.post("/", async (request, response) => {
+userRouter.post('/', async (request, response) => {
   try {
-    const data = request.body;
+    const data = request.body
 
-    const createUserService = new CreateUserService(new UserRepository());
+    const createUserService = new CreateUserService(new UserRepository())
 
-    const createSurvey = await createUserService.execute(data);
+    const createSurvey = await createUserService.execute(data)
 
-    return response.status(200).json(createSurvey);
+    return response.status(200).json(createSurvey)
   } catch (error) {
-    //@ts-ignore
-    return response.status(401).json({ err: error.message });
+    // @ts-expect-error
+    return response.status(401).json({ err: error.message })
   }
-});
+})
 
-export { userRouter };
+export { userRouter }

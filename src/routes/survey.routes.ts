@@ -1,67 +1,67 @@
-import { Router } from "express";
-import SurveyRepository from "../repositories/SurveyRepository";
-import CreateSurveyService from "../services/CreateSurveyService";
-import CreateVoteService from "../services/CreateVoteService";
+import { Router } from 'express'
+import SurveyRepository from '../repositories/SurveyRepository'
+import CreateSurveyService from '../services/CreateSurveyService'
+import CreateVoteService from '../services/CreateVoteService'
 
-const surveyRouter = Router();
+const surveyRouter = Router()
 
-surveyRouter.post("/", async (request, response) => {
+surveyRouter.post('/', async (request, response) => {
   try {
-    const data = request.body;
+    const data = request.body
 
-    const createSurveyService = new CreateSurveyService(new SurveyRepository());
+    const createSurveyService = new CreateSurveyService(new SurveyRepository())
 
-    const createSurvey = await createSurveyService.execute(data);
+    const createSurvey = await createSurveyService.execute(data)
 
-    return response.status(200).json(createSurvey);
+    return response.status(200).json(createSurvey)
   } catch (error) {
-    //@ts-ignore
-    return response.status(401).json({ err: error.message });
+    // @ts-expect-error
+    return response.status(401).json({ err: error.message })
   }
-});
+})
 
-surveyRouter.put("/:id/results", async (request, response) => {
+surveyRouter.put('/:id/results', async (request, response) => {
   try {
-    const { id } = request.params;
-    const { answer } = request.body;
+    const { id } = request.params
+    const { answer } = request.body
 
-    const createVoteService = new CreateVoteService(new SurveyRepository());
+    const createVoteService = new CreateVoteService(new SurveyRepository())
 
-    const createVote = await createVoteService.execute({ id, answer });
+    const createVote = await createVoteService.execute({ id, answer })
 
-    return response.status(200).json(createVote);
+    return response.status(200).json(createVote)
   } catch (error) {
-    //@ts-ignore
-    return response.status(401).json({ err: error.message });
+    // @ts-expect-error
+    return response.status(401).json({ err: error.message })
   }
-});
+})
 
-surveyRouter.get("/", async (request, response) => {
+surveyRouter.get('/', async (request, response) => {
   try {
-    const surveyRepository = new SurveyRepository();
+    const surveyRepository = new SurveyRepository()
 
-    const findAllSurveys = await surveyRepository.all();
+    const findAllSurveys = await surveyRepository.all()
 
-    return response.status(200).json(findAllSurveys);
+    return response.status(200).json(findAllSurveys)
   } catch (error) {
-    //@ts-ignore
-    return response.status(401).json({ err: error.message });
+    // @ts-expect-error
+    return response.status(401).json({ err: error.message })
   }
-});
+})
 
-surveyRouter.get("/:id/results", async (request, response) => {
+surveyRouter.get('/:id/results', async (request, response) => {
   try {
-    const { id } = request.params;
+    const { id } = request.params
 
-    const surveyRepository = new SurveyRepository();
+    const surveyRepository = new SurveyRepository()
 
-    const findSurvey = await surveyRepository.getOne(id);
+    const findSurvey = await surveyRepository.getOne(id)
 
-    return response.status(200).json(findSurvey);
+    return response.status(200).json(findSurvey)
   } catch (error) {
-    //@ts-ignore
-    return response.status(401).json({ err: error.message });
+    // @ts-expect-error
+    return response.status(401).json({ err: error.message })
   }
-});
+})
 
-export { surveyRouter };
+export { surveyRouter }

@@ -2,20 +2,20 @@ import { Model } from "mongoose";
 import { UserModel, IUser } from "../models/User";
 
 class UserRepository {
-  private users: Model<IUser>;
+  private readonly users: Model<IUser>;
 
   constructor() {
     this.users = UserModel;
   }
 
   public async findById(id: string) {
-    return this.users.findOne({
+    return await this.users.findOne({
       _id: id,
     });
   }
 
   public async findByEmail(email: string) {
-    return this.users.findOne({
+    return await this.users.findOne({
       email: email,
     });
   }

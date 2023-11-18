@@ -1,4 +1,4 @@
-import { json, Router } from "express";
+import { Router } from "express";
 import UserRepository from "../repositories/UserRepository";
 import { AuthenticateUserService } from "../services/AuthenticateUserService";
 
@@ -19,7 +19,7 @@ sessionRouter.post("/", async (request, response) => {
 
     return response.status(200).json({ data: authenticateUser });
   } catch (error) {
-    //@ts-ignore
+    // @ts-expect-error
     return response.status(401).json({ err: error.message });
   }
 });
